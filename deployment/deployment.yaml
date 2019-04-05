@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: osa
+  name: osa
+  namespace: summit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osa
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: osa
+    spec:
+      containers:
+      - args:
+        - -dev-mode
+        - -hostname=https://osa-summit.apps.labs.osadev.cloud
+        image: quay.io/mangirdas/osa-labs:latest
+        imagePullPolicy: Always
+        name: osa
+        ports:
+        - containerPort: 8080
+          name: http
+        volumeMounts:
+        - mountPath: /storage
+          name: storage
+          readOnly: false
+        resources:
+          limits:
+            cpu: 20m
+            memory: 50Mi
+          requests:
+            cpu: 20m
+            memory: 50Mi
+      volumes:
+      - emptyDir: {}
+        name: storage
