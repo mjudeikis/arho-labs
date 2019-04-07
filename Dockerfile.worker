@@ -1,0 +1,5 @@
+FROM registry.access.redhat.com/rhel7:latest
+RUN mkdir -p /data 
+COPY test/* /data
+COPY ssh .
+ENTRYPOINT [ "/ssh" ]

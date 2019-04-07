@@ -10,3 +10,14 @@ type Credential struct {
 type CredentialsStore struct {
 	Credentials []Credential
 }
+
+type Worker struct {
+	IP       string `json:"ip"`
+	SSHKey   string `json:"sshKey"`
+	Reserved bool   `json:"reserved"`
+	Name     string `json:"name"`
+}
+
+type WorkersStore struct {
+	Workers []Worker
+}
